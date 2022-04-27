@@ -41,7 +41,7 @@ app.get('/login',(req,res)=>{
     res.render('login.ejs')
 })
 /* --------------------------------------------------------------------------------------------------------- */
-app.get('/caja',(req,res)=>{
+app.get('/checkout',(req,res)=>{
     if(req.session.loggedCaja || req.session.loggedAdmin){
         res.render('caja.ejs',{
             login:true,
@@ -76,7 +76,7 @@ app.post('/user',(req,res)=>{
                     case "caja":
                         req.session.loggedCaja = true
                         req.session.user = user
-                        res.json('/caja')
+                        res.json('/checkout')
                         break;
                     case "Administrador":
                         req.session.loggedCaja = true

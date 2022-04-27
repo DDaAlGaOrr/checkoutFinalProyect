@@ -11,10 +11,17 @@
     <title>Inicio de sesión</title>
   </head>
   <body>
+    <% if(!login) {%>
+        <div class="container">
+            <h1><strong><%= name %></strong></h1>
+            <a href="login" class="btn btn-primary">Iniciar sesion</a>
+          </div>
+    <%}%>
     <nav class="navbar navbar-dark bg-primary">
       <div class="container-fluid">
         <h3>Punto de venta</h3>
-      </div>
+        <a href="/logout">Cerrar sesion</a>
+    </div>
     </nav>
     <h1>Soy la caja</h1>
     <script type="module" src="js/app.js"></script>

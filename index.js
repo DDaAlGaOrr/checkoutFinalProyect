@@ -6,6 +6,8 @@ const session = require('express-session')
 const dotEnv = require('dotenv')
 const cnx = require('./db/connection')
 let port = 3000
+const oneDay = 1000 * 60 * 60 * 24
+const cookieParser = require("cookie-parser");
 /* --------------------------------------------------------------------------------------------------------- */
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -18,14 +20,21 @@ app.set('view engine', 'ejs');
 app.use(session({
     secret: 'secret',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { maxAge: oneDay },
 })) 
 app.use(express.static('public'));
 app.use(express.json({limit:'50mb'}))
 app.use(express.urlencoded({limit:'50mb',extended:true}))
+app.use(cookieParser());
 /* --------------------------------------------------------------------------------------------------------- */
 app.get('/dashboard',(req,res)=>{
-    res.render('home.ejs')
+    if(req.session.loggedAdmin){
+        res.render('home.ejs',{
+            login:true,
+            user: req.session.user
+        })
+    }
 })
 /* --------------------------------------------------------------------------------------------------------- */
 app.get('/login',(req,res)=>{
@@ -33,7 +42,12 @@ app.get('/login',(req,res)=>{
 })
 /* --------------------------------------------------------------------------------------------------------- */
 app.get('/caja',(req,res)=>{
-    res.render('caja.ejs')
+    if(req.session.loggedCaja || req.session.loggedAdmin){
+        res.render('caja.ejs',{
+            login:true,
+            user: req.session.user
+        })
+    }
 })
 /* --------------------------------------------------------------------------------------------------------- */
 app.get('/data',(req,res)=>{
@@ -57,18 +71,22 @@ app.post('/user',(req,res)=>{
         else{
             if(results.length > 0){
                 const typeUser = results[0].tipo
+                const user = results[0].usuario
                 switch (typeUser) {
                     case "caja":
+                        req.session.loggedCaja = true
+                        req.session.user = user
                         res.json('/caja')
                         break;
                     case "Administrador":
+                        req.session.loggedCaja = true
+                        req.session.loggedAdmin = true
+                        req.session.user = user
                         res.json('/dashboard')
-                        break;
-                
+                        break;             
                     default:
                         break;
                 }
-                
             }
             else{
                 res.json(false)
@@ -76,6 +94,11 @@ app.post('/user',(req,res)=>{
         }
     })
 })
-
+/* --------------------------------------------------------------------------------------------------------- */
+app.get('/logout',(req,res)=>{
+    req.session.destroy(()=>{
+        res.redirect('/login')
+    }) 
+})
 /* --------------------------------------------------------------------------------------------------------- */
 app.listen(port,()=>console.log(`Server on port ${port}`))

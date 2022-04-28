@@ -1,10 +1,72 @@
 .container-form{
-    margin: 0 auto;
-    width: 450px;
-    height: 450px;
-    text-align: center;
+    margin: 100px auto;
+    width: 550px;
+    height: 400px;
+    /* text-align: center; */
+    background-color: #02253d;
+    padding: 30px;
+    border-radius: 2%;
 }
 .logo-user{
     width: 250px;
     height: 250px;
+}
+.body-login{
+    background-color:  #577996;
+}
+.montserrat-200{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+}
+.montserrat-400{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+.montserrat-500{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+.montserrat-600{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+.montserrat-700{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+.montserrat-800{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+}
+/*-----------------------------------------------------------------------------------------------------*/
+.font-color-b1{
+    color: #94b8d7;
+}
+.font-color-b2{
+    color: #7498b6;
+}
+.font-color-b3{
+    color: #557996;
+}
+.font-color-b4{
+    color: #365b77;
+}
+.font-color-b5{
+    color: #153f59;
+}
+/*-----------------------------------------------------------------------------------------------------*/
+.back-color-g1{
+    background-color: #012e46;
+}
+.back-color-g2{
+    background-color: #02253d;
+}
+.back-color-g3{
+    background-color: #021d34;
+}
+.back-color-g4{
+    background-color: #02152b;
+}
+.back-color-g5{
+    background-color: #000a23;
 }

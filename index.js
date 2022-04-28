@@ -8,6 +8,7 @@ const cnx = require('./db/connection')
 let port = 3000
 const oneDay = 1000 * 60 * 60 * 24
 const cookieParser = require("cookie-parser");
+const Cloudinary = require('cloudinary')
 /* --------------------------------------------------------------------------------------------------------- */
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -27,6 +28,11 @@ app.use(express.static('public'));
 app.use(express.json({limit:'50mb'}))
 app.use(express.urlencoded({limit:'50mb',extended:true}))
 app.use(cookieParser());
+Cloudinary.config({ 
+    cloud_name: 'ddvhfm90g', 
+    api_key: '669858645882588', 
+    api_secret: 'OdugDAxj8MGgTI_4zWNXAmjvSwI' 
+  });
 /* --------------------------------------------------------------------------------------------------------- */
 app.get('/dashboard',(req,res)=>{
     if(req.session.loggedAdmin){
